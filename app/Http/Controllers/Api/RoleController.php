@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Respositories\RoleRespository;
 
 class roleController extends ApiController{

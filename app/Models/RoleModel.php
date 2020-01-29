@@ -14,7 +14,7 @@ class RoleModel extends Model{
 
     /*角色下的权限*/
     public function conPermission(){
-        return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id');
+        return $this->belongsToMany(PermissionModel::class, 'role_permission', 'role_id', 'permission_id');
     }
     
 }

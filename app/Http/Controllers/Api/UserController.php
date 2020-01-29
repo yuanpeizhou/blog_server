@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Respositories\UserRespository;
+use App\Models\AuthModel;
 
 class UserController extends ApiController{
 
@@ -32,5 +31,9 @@ class UserController extends ApiController{
 
     public function userDelete(){
         return $this->userRespository->userDelete(\request());
+    }
+
+    public function userLogin(){
+        return $this->userRespository->userLogin(\request(),New AuthModel());
     }
 }

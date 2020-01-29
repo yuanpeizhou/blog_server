@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Mockery\Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ParamsErrorException extends HttpException{

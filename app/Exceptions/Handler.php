@@ -45,7 +45,17 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
+    {   
+        if($exception instanceof ParamsErrorException || $exception instanceof InvalidRequestException || $exception instanceof UnauthorizedException){
+            $code = $exception->getCode();
+            $message = $exception->getMessage();
+            $returnContent = [
+                'code' => $code,
+                'message' => $message,
+
+            ];
+            return response()->json($returnContent);
+        }
         return parent::render($request, $exception);
     }
 }

@@ -11,12 +11,46 @@ class MenuRespository{
         $this->menuTreeModel = New \App\Models\MenuTreeModel();
     }
 
+    public function menuList(){
+        if(1 == false){
+            return $this->menuListForAdmin($request);
+        }else{
+            return $this->menuListForUser($request);
+        }
+    }
+
     public function menuListForAdmin($request){
 
     }
 
     public function menuListForUser($request){
-        
+        $menu = $this->model
+        ->orderBy('menu_left')->get()->toArray();
+        $menuData = [];
+        $left = 0;
+        $right = 0;
+        foreach ($menu as $key => $value) {
+            $temp['menu_name'] = $value['menu_name'];
+            $temp['menu_icon'] = $value['menu_icon'];
+            $temp['menu_left'] = $value['menu_left'];
+            $temp['menu_right'] = $value['menu_right'];
+            if($value['menu_depth'] == 1){
+                $menuData[] = $temp;
+            }
+        }
+        foreach ($menuData as $key => $value) {
+            foreach ($menu as $menuKey => $menuValue) {
+                $temp = [];
+                if($menuValue['menu_left'] > $value['menu_left'] && $menuValue['menu_right'] < $value['menu_right']){
+                    $temp['menu_name'] = $menuValue['menu_name'];
+                    $temp['menu_icon'] = $menuValue['menu_icon'];
+                    $temp['menu_left'] = $menuValue['menu_left'];
+                    $temp['menu_right'] = $menuValue['menu_right'];
+                    $value['child'] = $temp;
+                }
+            }
+        }
+        return ['code' => 20 ,'message' => 'ok','data' => $menuData];
     }
 
     public function menuInfo($request){
@@ -88,25 +122,25 @@ class MenuRespository{
         }
     }
 
-    /*获取节点信息 插入时使用*/
-    public function getNode($parentId = false){
-        /*子节点*/
-        if($parentId){
-            $node = $this->model->find($parentId);
-            if(!$node){
-                return false;
-            }else{
-                return  ['left' => $node->menu_right,'right' => $node->menu_right + 1,'depth' => $node->menu_depth + 1];
-            }
-        }
-        /*一级节点*/
-        else{
-            $right = $this->model->max('menu_right');
-            if($right){
-                return ['left' => $right + 1,'right' => $right + 2,'depth' => 1];
-            }else{
-                return ['left' => 1,'right' => 2,'depth' => 1];
-            }
-        }
-    }
+    // /*获取节点信息 插入时使用*/废弃
+    // public function getNode($parentId = false){
+    //     /*子节点*/
+    //     if($parentId){
+    //         $node = $this->model->find($parentId);
+    //         if(!$node){
+    //             return false;
+    //         }else{
+    //             return  ['left' => $node->menu_right,'right' => $node->menu_right + 1,'depth' => $node->menu_depth + 1];
+    //         }
+    //     }
+    //     /*一级节点*/
+    //     else{
+    //         $right = $this->model->max('menu_right');
+    //         if($right){
+    //             return ['left' => $right + 1,'right' => $right + 2,'depth' => 1];
+    //         }else{
+    //             return ['left' => 1,'right' => 2,'depth' => 1];
+    //         }
+    //     }
+    // }
 }

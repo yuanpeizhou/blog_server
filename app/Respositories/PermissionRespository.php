@@ -4,7 +4,7 @@ use App\Models\PermissionModel;
 use App\Exceptions\ParamsErrorException;
 use App\Exceptions\InvalidRequestException;
 
-class permissionRepository{
+class permissionRespository{
 
     public function __construct(){
         $this->model = New PermissionModel();
@@ -48,6 +48,7 @@ class permissionRepository{
         $permission->permission_name_cn = $request->permissionNameCn ? $request->permissionNameCn : null;
         $permission->permission_name_en = $request->permissionNameEn ? $request->permissionNameEn : null;
         $permission->permission_api_path = $request->permissionApiPath ? $request->permissionApiPath : null;
+        $res = $permission->save();
         if(!$res){
             throw New InvalidRequestException('编辑权限失败');
         }

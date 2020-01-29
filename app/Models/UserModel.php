@@ -24,7 +24,7 @@ class UserModel extends Model{
 
     /*联查人员权限*/
     public function conPermission(){
-        return $this->belongsToMany(Permission::class, 'user_permission', 'user_id', 'permission_id');
+        return $this->belongsToMany(PermissionModel::class, 'user_permission', 'user_id', 'permission_id');
     }
     /*给与人员权限*/
     public function AssignPermission(){
