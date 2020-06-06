@@ -24,6 +24,7 @@ class AuthController{
         }
     }
 
+    //验证是否有使用api权限
     public static function verifyByApi($userPermissionModel,$userRoleModel){
         $user = \request()->authInfo->user;
         $apiPath = \request()->path();
@@ -47,6 +48,7 @@ class AuthController{
         return false;
     }
 
+    //生成token
     public static function generateToken(){
         $token = md5(time() . mt_rand(1, 10000));
         $expired_at = Carbon::now()->addSeconds(config('misc.token_duration_second'))->toDateTimeString();

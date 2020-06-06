@@ -151,7 +151,7 @@ class UserRespository{
         $auth->token_expired_at = $tokenSet['expired_at'];
         $res = $auth->save();
         if($res){
-            return ['token' => $tokenSet['token'], 'userId' => $user->id 
+            return ['code' => 200,'token' => $tokenSet['token'], 'userId' => $user->id 
             // ,'departmentIds' => json_decode($user->department_json)
         ];
         }else{
