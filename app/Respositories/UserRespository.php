@@ -17,7 +17,7 @@ class UserRespository{
     public function userList($request){
         $pageSize = $request->pageSize ? $request->pageSize : 10;
         $result = $this->model
-        ->select('id','user_name')
+        ->select('id','username')
         ->with('conRole','conPermission')
         ->orderBy('created_at','desc')->paginate($pageSize)->toArray();
         return ['code' => 200,'message' => 'ok','data' => $result];
@@ -25,7 +25,7 @@ class UserRespository{
 
     public function userInfo($request){
         $user = $this->model
-        ->select('id','user_name')
+        ->select('id','username')
         ->with('conRole','conPermission')
         ->find($request->userId);
         if(!$user){
@@ -38,7 +38,7 @@ class UserRespository{
     public function userInsert($request){
         DB::beginTransaction();
         try{  
-            $this->model->user_name = $request->userName ? $request->userName : '';
+            $this->model->username = $request->userName ? $request->userName : '';
             $this->model->password = $request->password ? md5($request->password) : '';
             $this->model->email = $request->email ? $request->email : '';
             $res = $this->model->save();
@@ -84,7 +84,7 @@ class UserRespository{
         }
         DB::beginTransaction();
         try{  
-            $user->user_name = $request->userName ? $request->userName : '';
+            $user->username = $request->userName ? $request->userName : '';
             $user->save();
             $userRoleModel = $this->getUserRoleModel();
             $userPermissionModel = $this->getUserPermissionModel();

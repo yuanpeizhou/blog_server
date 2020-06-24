@@ -20,8 +20,8 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->group(function(){
     Route::post('/user/login','UserController@userLogin');
 });
-
-Route::namespace('Api')->middleware('api_auth')->group(function(){
+// ->middleware('api_auth')
+Route::namespace('Api')->group(function(){
     Route::post('/menu/insert', 'MenuController@menuInsert');
     Route::post('/menu/delete', 'MenuController@menuDelete');
 
@@ -40,13 +40,24 @@ Route::namespace('Api')->middleware('api_auth')->group(function(){
     Route::post('/permission/delete','PermissionController@permissionDelete');
 
     /*角色*/
-    Route::get('/role/list','RoleController@roleList');
-    Route::get('/role/info','RoleController@roleInfo');
-    Route::post('/role/insert','RoleController@roleInsert');
-    Route::post('/role/update','RoleController@roleUpdate');
-    Route::post('/role/delete','RoleController@roleDelete');
+    Route::get('/article/list','articleController@articleList');
+    Route::get('/article/info','articleController@articleInfo');
+    Route::post('/article/insert','articleController@articleInsert');
+    Route::post('/article/update','articleController@articleUpdate');
+    Route::post('/article/delete','articleController@articleDelete');
+
+    /**
+     * 文章
+     */
+    Route::get('/article/list','ArticleController@articleList');
+    Route::get('/article/info','ArticleController@articleInfo');
+    Route::post('/article/insert','ArticleController@articleInsert');
+    Route::post('/article/update','ArticleController@articleUpdate');
+    Route::post('/article/delete','ArticleController@articleDelete');
 
 });
+
+
 
 
 

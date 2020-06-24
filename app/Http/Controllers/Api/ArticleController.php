@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Respositories\ArticleRepository;
 
-class ArticleControoler extends ApiController{
+class ArticleController extends ApiController{
 
     protected $articleRepository;
 
