@@ -7,6 +7,21 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+@$http_origin = $_SERVER['HTTP_ORIGIN'];
+// if(
+//   $http_origin === 'http://www.vuetest.com:90' 
+// ){
+//   header("Access-Control-Allow-Origin: $http_origin");
+// }
+header('Access-Control-Allow-Origin:*');
+header('Vary: Origin');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Headers: X-Requested-With,Content-Type,Authorization');
+if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
+  http_response_code(204);
+  exit();
+}
+
 define('LARAVEL_START', microtime(true));
 
 /*
